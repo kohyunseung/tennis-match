@@ -5,17 +5,16 @@ import { useRouter } from "next/navigation";
 
 import { postPlayersRank } from "@/services/rank";
 
-export function InputWithButton({
+function InputWithButton({
   addPlayer,
   onSubmit,
 }: {
-  addPlayer: (player: string) => void;
+  addPlayer: (player: any) => void;
   onSubmit: () => void;
 }) {
-  const onChange = ({ target }: { target: ChangeEvent }) =>
-    addPlayer(target.value);
+  const onChange = ({ target }: { target: any }) => addPlayer(target.value);
 
-  const onKeyDown = (e) => {
+  const onKeyDown = (e: any) => {
     if (e.isComposing || e.keyCode === 229) return;
     if (e.key === "Enter") {
       onSubmit();

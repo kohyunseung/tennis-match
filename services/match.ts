@@ -1,9 +1,9 @@
 import { http } from "@/lib/http";
 
 export function fetchTodayMatches() {
-  return http.get<string[][]>("/api/today-match");
+  return http.get<any>("/api/today-match");
 }
 
-export function postTodayMatches(data) {
-  return http.post("/api/today-match", data);
+export function postTodayMatches(data: any) {
+  return http.post<any>("/api/today-match", data);
 }

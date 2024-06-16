@@ -37,16 +37,15 @@ const PlayerChip = ({
   );
 };
 
-export function InputWithButton({
+function InputWithButton({
   addPlayer,
 }: {
   addPlayer: (player: string) => void;
 }) {
   const [player, setPlayer] = useState("");
-  const onChange = ({ target }: { target: ChangeEvent }) =>
-    setPlayer(target.value);
+  const onChange = ({ target }: { target: any }) => setPlayer(target.value);
 
-  const onKeyDown = (e) => {
+  const onKeyDown = (e: any) => {
     if (e.isComposing || e.keyCode === 229) return;
     if (e.key === "Enter") {
       addPlayer(player);

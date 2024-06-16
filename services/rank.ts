@@ -1,5 +1,5 @@
 import { http } from "@/lib/http";
 
-export function postPlayersRank(data) {
-  return http.post("/api/rank", data);
+export function postPlayersRank(data: any) {
+  return http.post<any>("/api/rank", data);
 }

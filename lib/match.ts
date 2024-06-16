@@ -1,40 +1,43 @@
-export function dividePlayers(arr, ranking) {
+export function dividePlayers(arr: any, ranking: any) {
   const test = arr
-    .map((x) => {
+    .map((x: any) => {
       return {
         player: x,
         rank: ranking[x] ?? Number.MAX_SAFE_INTEGER,
       };
     })
-    .sort((a, b) => a.rank - b.rank);
+    .sort((a: any, b: any) => a.rank - b.rank);
 
   const half = Math.ceil(test.length / 2);
 
   const firstHalf = test.splice(0, half);
   const secondHalf = test.splice(-half);
 
-  return [firstHalf.map((x) => x.player), secondHalf.map((x) => x.player)];
+  return [
+    firstHalf.map((x: any) => x.player),
+    secondHalf.map((x: any) => x.player),
+  ];
 }
 
-export function shuffleArray(arr) {
+export function shuffleArray(arr: any) {
   return arr.sort(() => Math.random() - 0.5);
 }
 
-export function generateMatchups(array1, array2) {
+export function generateMatchups(array1: any, array2: any) {
   let matchups = [];
-  let playerMatches = {};
+  let playerMatches: { [key: string]: number } = {};
 
   // Initialize match counts
-  array1.forEach((player) => (playerMatches[player] = 0));
-  array2.forEach((player) => (playerMatches[player] = 0));
+  array1.forEach((player: any) => (playerMatches[player] = 0));
+  array2.forEach((player: any) => (playerMatches[player] = 0));
   const originArray1 = [...array1];
   const originArray2 = [...array2];
 
   while (true) {
     // Check if all players have played at least 2 matches
     let allPlayersCompleted =
-      array1.every((player) => playerMatches[player] >= 2) &&
-      array2.every((player) => playerMatches[player] >= 2);
+      array1.every((player: any) => playerMatches[player] >= 2) &&
+      array2.every((player: any) => playerMatches[player] >= 2);
 
     if (allPlayersCompleted) break;
 

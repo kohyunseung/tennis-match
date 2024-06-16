@@ -4,11 +4,12 @@ import { writeFile } from "fs/promises";
 export async function POST(req: Request) {
   try {
     const { players } = await req.json();
-    console.log(players);
-    const playersWithRank = players.split(",").reduce((acc, cur, i) => {
-      acc[cur] = i + 1;
-      return acc;
-    }, {});
+    const playersWithRank = players
+      .split(",")
+      .reduce((acc: any, cur: any, i: number) => {
+        acc[cur] = i + 1;
+        return acc;
+      }, {});
 
     console.log(playersWithRank);
 
