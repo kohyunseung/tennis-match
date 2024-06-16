@@ -56,7 +56,7 @@ const Main = async () => {
         ) : (
           <Match>
             {todayMatch.map((x, i) => (
-              <Round round={i} player={x} />
+              <Round key={x + i} round={i} player={x} />
             ))}
           </Match>
         )}
