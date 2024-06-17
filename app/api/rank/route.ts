@@ -12,6 +12,9 @@ export async function POST(req: Request) {
       }, {});
 
     console.log("[RANK]", playersWithRank);
+    console.log("지우기전", await Rank.find({}));
+    await Rank.deleteMany({});
+    console.log("지운후", await Rank.find({}));
 
     await Rank.create({ rank: playersWithRank });
 

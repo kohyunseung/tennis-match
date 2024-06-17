@@ -58,6 +58,8 @@ export async function POST(req: Request) {
 
     const matchups = generateMatchups(first, second);
 
+    const removeData = await Match.deleteMany({ date: today });
+
     const data = await Match.create({ date: today, matches: matchups });
 
     // matchJsonData[today] = matchups;
