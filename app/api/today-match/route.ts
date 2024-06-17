@@ -3,14 +3,15 @@ import dayjs from "dayjs";
 import match from "@/data/match.json";
 import ranking from "@/data/ranking.json";
 
-import { writeFile } from "fs/promises";
+import { writeFile, readFile } from "fs/promises";
 
 import { dividePlayers, generateMatchups } from "@/lib/match";
 
 export async function GET(req: Request) {
   try {
     const today = dayjs().format("YYYY-MM-DD");
-    const jsonData: { [key: string]: any } = match;
+    const match = await readFile(process.cwd() + "/data/match.json", "utf8");
+    const jsonData = JSON.parse(match);
 
     return NextResponse.json({
       data: jsonData[today] ?? [],
@@ -24,8 +25,12 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     // 랭킹 데이터
-    const jsonData: { [key: string]: any } = ranking;
-    const matchJsonData: { [key: string]: any } = match;
+    const rank = await readFile(process.cwd() + "/data/ranking.json", "utf8");
+    const jsonData = JSON.parse(rank);
+
+    const match = await readFile(process.cwd() + "/data/match.json", "utf8");
+    const matchJsonData = JSON.parse(match);
+
     const today = dayjs().format("YYYY-MM-DD");
 
     // 오늘 경기 뛸 선수들
