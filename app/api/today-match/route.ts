@@ -12,6 +12,8 @@ export async function GET(req: Request) {
     const match = await customReadFile("/app/data/match.json");
     const jsonData = JSON.parse(match);
 
+    console.log("[TODAY-MATCH-JSON-DATA]", jsonData);
+
     return NextResponse.json({
       data: jsonData[today] ?? [],
     });
