@@ -1,12 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-
-import path from "path";
-
-const RANK_FILE_PATH =
-  process.env.VERCEL === "1"
-    ? path.join("/tmp", "tennis-match/rank.json")
-    : path.join(process.cwd() + "/app/data/rank.json");
+import Rank from "@/models/Rank";
 
 export async function POST(req: Request) {
   try {
@@ -20,7 +13,7 @@ export async function POST(req: Request) {
 
     console.log("[RANK]", playersWithRank);
 
-    writeFile(RANK_FILE_PATH, JSON.stringify(playersWithRank));
+    await Rank.create({ rank: playersWithRank });
 
     return NextResponse.json({
       result: true,
