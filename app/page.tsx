@@ -1,3 +1,5 @@
+"use client";
+
 import { fetchTodayMatches } from "@/services/match";
 
 const EmptyMatch = () => {
