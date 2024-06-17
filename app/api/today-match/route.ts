@@ -44,6 +44,8 @@ export async function POST(req: Request) {
 
     matchJsonData[today] = matchups;
 
+    console.log("[MATCH-JSON]", matchJsonData);
+
     writeFile(
       process.cwd() + "/app/data/match.json",
       JSON.stringify(matchJsonData)
