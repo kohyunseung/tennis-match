@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { fetchTodayMatches } from "@/services/match";
 
 const EmptyMatch = () => {
@@ -44,11 +45,20 @@ const Round = ({ round, player }: { round: number; player: string }) => {
   );
 };
 
-const Main = async () => {
+const Main = () => {
   // const todayMatch = [];
   // const { data: todayMatch } = await fetchTodayMatches();
-  const response = await fetchTodayMatches();
-  const { data: todayMatch } = await response.json();
+  const [todayMatch, setTodayMatch] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetchTodayMatches();
+      const { data: todayMatch } = await response.json();
+      setTodayMatch(todayMatch);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main className="flex min-h-screen max-w-96 flex-col m-auto items-center justify-center">
