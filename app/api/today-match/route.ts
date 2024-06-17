@@ -33,8 +33,12 @@ export async function POST(req: Request) {
     const rank = await customReadFile("/app/data/ranking.json");
     const jsonData = JSON.parse(rank);
 
+    console.log(jsonData);
+
     const match = await customReadFile("/app/data/match.json");
     const matchJsonData = JSON.parse(match);
+
+    console.log(matchJsonData);
 
     const today = dayjs().format("YYYY-MM-DD");
 
