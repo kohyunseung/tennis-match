@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
     console.log("[RANK]", playersWithRank);
 
-    writeFile(
+    await writeFile(
       process.cwd() + "/app/data/ranking.json",
       JSON.stringify(playersWithRank)
     );

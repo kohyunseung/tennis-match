@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
     console.log("[MATCH-JSON]", matchJsonData);
 
-    writeFile(
+    await writeFile(
       process.cwd() + "/app/data/match.json",
       JSON.stringify(matchJsonData)
     );
