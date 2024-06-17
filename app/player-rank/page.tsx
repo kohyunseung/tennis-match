@@ -48,6 +48,8 @@ function InputWithButton({
 const MatchGeneratePage = () => {
   const router = useRouter();
 
+  console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
+
   const [isLoading, setIsLoading] = useState(false);
   const [players, setPlayers] = useState<string[]>([]);
 
