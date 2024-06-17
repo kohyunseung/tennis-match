@@ -1,17 +1,15 @@
 import { NextResponse } from "next/server";
 import dayjs from "dayjs";
 
-import { writeFile, readFile } from "fs/promises";
+import { writeFile } from "fs/promises";
+import { customReadFile } from "@/lib/file";
 
 import { dividePlayers, generateMatchups } from "@/lib/match";
 
 export async function GET(req: Request) {
   try {
     const today = dayjs().format("YYYY-MM-DD");
-    const match = await readFile(
-      process.cwd() + "/app/data/match.json",
-      "utf8"
-    );
+    const match = await customReadFile("/app/data/match.json");
     const jsonData = JSON.parse(match);
 
     return NextResponse.json({
@@ -19,23 +17,21 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     console.log("[TODAY-MATCH]", error);
-    return new NextResponse("Internal Error", { status: 500 });
+
+    return NextResponse.json({
+      data: [],
+    });
+    // return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
   try {
     // 랭킹 데이터
-    const rank = await readFile(
-      process.cwd() + "/app/data/ranking.json",
-      "utf8"
-    );
+    const rank = await customReadFile("/app/data/ranking.json");
     const jsonData = JSON.parse(rank);
 
-    const match = await readFile(
-      process.cwd() + "/app/data/match.json",
-      "utf8"
-    );
+    const match = await customReadFile("/app/data/match.json");
     const matchJsonData = JSON.parse(match);
 
     const today = dayjs().format("YYYY-MM-DD");
@@ -47,7 +43,6 @@ export async function POST(req: Request) {
     const matchups = generateMatchups(first, second);
 
     matchJsonData[today] = matchups;
-    console.log(process.cwd());
 
     writeFile(
       process.cwd() + "/app/data/match.json",
