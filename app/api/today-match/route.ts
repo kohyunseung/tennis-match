@@ -3,13 +3,24 @@ import dayjs from "dayjs";
 
 import { writeFile } from "fs/promises";
 import { customReadFile } from "@/lib/file";
+import path from "path";
 
 import { dividePlayers, generateMatchups } from "@/lib/match";
+
+const RANK_FILE_PATH =
+  process.env.VERCEL === "1"
+    ? path.join("/tmp", "tennis-match/rank.json")
+    : path.join(process.cwd() + "/app/data/rank.json");
+
+const MATCH_FILE_PATH =
+  process.env.VERCEL === "1"
+    ? path.join("/tmp", "tennis-match/match.json")
+    : path.join(process.cwd() + "/app/data/match.json");
 
 export async function GET(req: Request) {
   try {
     const today = dayjs().format("YYYY-MM-DD");
-    const match = await customReadFile("/app/data/match.json");
+    const match = await customReadFile(MATCH_FILE_PATH);
     const jsonData = JSON.parse(match);
 
     console.log("[TODAY-MATCH-JSON-DATA]", jsonData);
@@ -30,12 +41,12 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     // 랭킹 데이터
-    const rank = await customReadFile("/app/data/ranking.json");
+    const rank = await customReadFile(RANK_FILE_PATH);
     const jsonData = JSON.parse(rank);
 
     console.log(jsonData);
 
-    const match = await customReadFile("/app/data/match.json");
+    const match = await customReadFile(MATCH_FILE_PATH);
     const matchJsonData = JSON.parse(match);
 
     console.log(matchJsonData);
@@ -52,10 +63,7 @@ export async function POST(req: Request) {
 
     console.log("[MATCH-JSON]", matchJsonData);
 
-    await writeFile(
-      process.cwd() + "/app/data/match.json",
-      JSON.stringify(matchJsonData)
-    );
+    writeFile(MATCH_FILE_PATH, JSON.stringify(matchJsonData));
 
     return NextResponse.json({
       result: true,
