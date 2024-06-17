@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import dayjs from "dayjs";
-import match from "@/data/match.json";
-import ranking from "@/data/ranking.json";
 
 import { writeFile, readFile } from "fs/promises";
 
@@ -10,7 +8,10 @@ import { dividePlayers, generateMatchups } from "@/lib/match";
 export async function GET(req: Request) {
   try {
     const today = dayjs().format("YYYY-MM-DD");
-    const match = await readFile(process.cwd() + "/data/match.json", "utf8");
+    const match = await readFile(
+      process.cwd() + "/app/data/match.json",
+      "utf8"
+    );
     const jsonData = JSON.parse(match);
 
     return NextResponse.json({
@@ -25,10 +26,16 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     // 랭킹 데이터
-    const rank = await readFile(process.cwd() + "/data/ranking.json", "utf8");
+    const rank = await readFile(
+      process.cwd() + "/app/data/ranking.json",
+      "utf8"
+    );
     const jsonData = JSON.parse(rank);
 
-    const match = await readFile(process.cwd() + "/data/match.json", "utf8");
+    const match = await readFile(
+      process.cwd() + "/app/data/match.json",
+      "utf8"
+    );
     const matchJsonData = JSON.parse(match);
 
     const today = dayjs().format("YYYY-MM-DD");
@@ -43,7 +50,7 @@ export async function POST(req: Request) {
     console.log(process.cwd());
 
     writeFile(
-      process.cwd() + "/data/match.json",
+      process.cwd() + "/app/data/match.json",
       JSON.stringify(matchJsonData)
     );
 
