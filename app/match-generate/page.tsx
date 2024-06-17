@@ -95,8 +95,10 @@ const MatchGeneratePage = () => {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      const { data, result } = await postTodayMatches({ players });
-      if (!result) throw new Error(data.message);
+      const response = await postTodayMatches({ players });
+      const { data, result } = await response.json();
+
+      if (!result) throw new Error("error");
 
       alert("생성이 완료되었습니다.");
       router.push("/");

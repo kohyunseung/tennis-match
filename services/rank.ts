@@ -1,5 +1,6 @@
-import { http } from "@/lib/http";
-
 export function postPlayersRank(data: any) {
-  return http.post<any>("/api/rank", data);
+  return fetch("http://localhost:3000/api/rank", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 }

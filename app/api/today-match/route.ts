@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import match from "@/data/match.json";
 import ranking from "@/data/ranking.json";
 
-import {  writeFile } from "fs/promises";
+import { writeFile } from "fs/promises";
 
 import { dividePlayers, generateMatchups } from "@/lib/match";
 

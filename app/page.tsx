@@ -44,7 +44,9 @@ const Round = ({ round, player }: { round: number; player: string }) => {
 
 const Main = async () => {
   // const todayMatch = [];
-  const { data: todayMatch } = await fetchTodayMatches();
+  // const { data: todayMatch } = await fetchTodayMatches();
+  const response = await fetchTodayMatches();
+  const { data: todayMatch } = await response.json();
 
   return (
     <main className="flex min-h-screen max-w-96 flex-col m-auto items-center justify-center">
