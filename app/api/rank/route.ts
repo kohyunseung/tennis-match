@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import dbConnect from "@/lib/db";
 import Rank from "@/models/Rank";
 
 export async function POST(req: Request) {
@@ -11,10 +12,11 @@ export async function POST(req: Request) {
         return acc;
       }, {});
 
+    await dbConnect();
     console.log("[RANK]", playersWithRank);
-    console.log("지우기전", await Rank.find({}));
+    // console.log("지우기전", await Rank.find({}));
     await Rank.deleteMany({});
-    console.log("지운후", await Rank.find({}));
+    // console.log("지운후", await Rank.find({}));
 
     await Rank.create({ rank: playersWithRank });
 
